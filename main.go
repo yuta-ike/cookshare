@@ -2,16 +2,47 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"text/template"
 
+	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"google.golang.org/api/option"
 )
+
+type Recipe struct {
+	Name    string `json:"name"`
+	Message string `json:"message"`
+}
+
+type Repo struct {
+	ctx    context.Context
+	client *firestore.Client
+}
+
+func initRepo() (*Repo, func()) {
+	ctx := context.Background()
+	sa := option.WithCredentialsFile("./settings/serviceAccount.json")
+	app, err := firebase.NewApp(ctx, nil, sa)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	client, err := app.Firestore(ctx)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	close := func() {
+		client.Close()
+	}
+
+	return &Repo{client: client, ctx: ctx}, close
+}
 
 type Template struct {
 	templates *template.Template
@@ -21,27 +52,41 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
-func recipePage() echo.HandlerFunc {
+func postPage(repo *Repo) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		recipeID := c.Param("recipeId")
-		message := fmt.Sprintf("レシピID:%s", recipeID)
-		return c.String(http.StatusOK, message)
+		post := new(Recipe)
+		c.Bind(post)
+		repo.client.Collection("recipes").Add(repo.ctx, post)
+		return c.JSON(http.StatusCreated, post)
 	}
 }
 
-func postPage() echo.HandlerFunc {
+func createPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		return c.Render(http.StatusOK, "recipe", "world")
 	}
 }
 
-func main() {
-	// Firebaseのセットアップ
-	// Use the application default credentials
-	app, err := firebase.NewApp(context.Background(), nil)
-	if err != nil {
-		log.Fatalf("error initializing app: %v\n", err)
+func recipePage(repo *Repo) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		recipeID := c.Param("recipeId")
+		dsnap, err := repo.client.Collection("recipes").Doc(recipeID).Get(repo.ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		recipe := Recipe{}
+		if err := dsnap.DataTo(&recipe); err != nil {
+			log.Fatal(err)
+		}
+
+		return c.Render(http.StatusOK, "recipe", recipe)
 	}
+}
+
+func main() {
+	repo, close := initRepo()
+	defer close()
 
 	// テンプレートの読み込み
 	t := &Template{
@@ -52,14 +97,12 @@ func main() {
 	e.Server.Addr = "127.0.0.1"
 	e.Renderer = t
 
-	// 全てのリクエストで差し込みたいミドルウェア（ログとか）はここ
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	// ルーティング
-	e.GET("/recipe/post", postPage())
-	e.GET("/recipe/:recipeId", recipePage())
+	e.POST("/recipe/create/post", postPage(repo))
+	e.GET("/recipe/create", createPage())
+	e.GET("/recipe/:recipeId", recipePage(repo))
 
-	// サーバー起動
-	e.Start("localhost:9090") //ポート番号指定してね
+	e.Start("localhost:9090")
 }
