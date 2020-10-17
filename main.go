@@ -100,6 +100,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
+	e.Static("/css", "./css")
 	e.POST("/recipe/create/post", postPage(repo))
 	e.GET("/recipe/create", createPage())
 	e.GET("/recipe/:recipeId", recipePage(repo))
