@@ -63,7 +63,7 @@ func postPage(repo *Repo) echo.HandlerFunc {
 
 func createPage() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		return c.Render(http.StatusOK, "recipe", "world")
+		return c.Render(http.StatusOK, "create", "")
 	}
 }
 
