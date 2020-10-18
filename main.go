@@ -12,7 +12,6 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"google.golang.org/api/iterator"
-	"google.golang.org/api/option"
 )
 
 type Recipe struct {
@@ -27,8 +26,9 @@ type Repo struct {
 
 func initRepo() (*Repo, func()) {
 	ctx := context.Background()
-	sa := option.WithCredentialsFile("./settings/serviceAccount.json")
-	app, err := firebase.NewApp(ctx, nil, sa)
+	// sa := option.WithCredentialsFile("./settings/serviceAccount.json")
+	// app, err := firebase.NewApp(ctx, nil, sa)
+	app, err := firebase.NewApp(ctx, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
