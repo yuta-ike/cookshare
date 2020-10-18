@@ -5,13 +5,16 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"text/template"
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"golang.org/x/oauth2/google"
 	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 )
 
 type Recipe struct {
@@ -26,9 +29,10 @@ type Repo struct {
 
 func initRepo() (*Repo, func()) {
 	ctx := context.Background()
+	credentials, err := google.CredentialsFromJSON(ctx, []byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
+	sa := option.WithCredentials(credentials)
 	// sa := option.WithCredentialsFile("./settings/serviceAccount.json")
-	// app, err := firebase.NewApp(ctx, nil, sa)
-	app, err := firebase.NewApp(ctx, nil)
+	app, err := firebase.NewApp(ctx, nil, sa)
 	if err != nil {
 		log.Fatalln(err)
 	}
