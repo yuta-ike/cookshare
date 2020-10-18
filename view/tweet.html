@@ -1,0 +1,25 @@
+{{define "tweet"}}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HELLO</title>
+</head>
+<body>
+	<a
+		href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw"
+		class="twitter-share-button"
+		data-size="large"
+		data-text="「{{.Recipe.Name}}」のレシピを投稿しました！
+簡単さ: {{.Recipe.Message}}
+"
+		data-url="https://cookshare-kyoto.herokuapp.com/recipe/{{.ID}}"
+		data-hashtags="UniPad,レシピ"
+		data-show-count="false"
+	>
+		Tweet
+	</a>
+	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
+
+{{end}}
