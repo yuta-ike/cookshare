@@ -1,16 +1,96 @@
 {{define "recipe"}}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-	<title>HELLO</title>
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="{{.Name}}のレシピ" />
-	<meta name="twitter:description" content="レシピを見ながら作ってみよう" />
-	<meta name="twitter:image" content="https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユニパッド</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{.Name}}のレシピ" />
+    <meta name="twitter:description" content="レシピを見ながら作ってみよう" />
+    <meta name="twitter:image" content="https://farm6.staticflickr.com/5510/14338202952_93595258ff_z.jpg" />
 </head>
 <body>
-	<p>レシピ名: {{.Name}}</p>
-	<p>メッセージ: {{.Message}}</p>
+    <header>
+        <div class="headerInner">
+            <!-- <img src="logo.png" alt="ロゴ" width="400" height="100" > -->
+        </div>
+    </header>
+    <main>
+        <h1>料理紹介ページ</h1>
+        
+        <h2>料理名</h2>
+            <!-- <figure><img id="pic" src="logo.png"  width="150" height="150"></figure> -->
+            <p>カレーライス{{.Name}}</p>
+            <img src="upload.jpg" alt="" height="100">
+            <p id="star">★★★</p>
+            <div>
+                <label class="tag">#切る</label>
+                <label class="tag">#煮る</label>
+                <label class="tag">#炒める</label>
+            </div>
+            
+        <h2>料理紹介</h2>
+            <p>切って煮込むだけ！</p>
+        <h2>材料</h2>
+            <p>カレールー　半かけら
+                <br>肉　100g
+                <br>ジャガイモ　中2個
+                <br>ニンジン　　半分　
+                <br>玉ねぎ　　　中1個
+
+            </p>
+        <h2>作り方</h2>
+    
+        <div class="howTo">
+            <h3>1</h3>
+            <p>野菜を切る</p>
+        </div>
+        <div class="howTo">
+            <h3>2</h3>
+            <p>鍋に油をしき、玉ねぎを炒める
+                <br>きつね色になったら他の野菜、肉を入れる
+            </p>
+        </div>
+        <div class="howTo">
+            <h3>3</h3>
+            <p>水500㎖入れる
+                <br>あくが浮いてきたらとる
+            </p>
+        </div>
+        <div class="howTo">
+            <h3>4</h3>
+            <p>10分ほど煮込んだらカレールーを入れる</p>
+        </div>
+        <div class="howTo">
+            <h3>5</h3>
+            <p>軽くかき混ぜながら10分温める</p>
+        </div>
+        <div class="howTo">
+            <h3>6</h3>
+            <p>完成!
+                <br>アツアツのうちに食べよう！
+            </p>
+            <img src="upload.jpg" alt="" height="100">
+        </div>
+            
+            
+        
+        
+    </main>
+
+    
+    <footer>
+        <div class="footerInner">
+            <small>&copy; ちーむなわとび</small>
+        </div>
+    </footer>
 </body>
 </html>
+
+
+
+
 {{end}}
