@@ -58,10 +58,17 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func postPage(repo *Repo) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		post := new(Recipe)
-		c.Bind(post)
-		repo.client.Collection("recipes").Add(repo.ctx, post)
-		return c.JSON(http.StatusCreated, post)
+		post := Recipe{
+			Name:    c.FormValue("name"),
+			Message: c.FormValue("introduction"),
+		}
+
+		docref, _, err := repo.client.Collection("recipes").Add(repo.ctx, post)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		return c.Redirect(http.StatusPermanentRedirect, "/recipe/tweet/"+docref.ID)
 	}
 }
 
@@ -154,7 +161,7 @@ func main() {
 	e.POST("/recipe/create/post", postPage(repo))
 	e.GET("/recipe/create", createPage())
 	e.GET("/recipe/list", listPage(repo))
-	e.GET("/recipe/tweet/:recipeId", tweetPage(repo))
+	e.POST("/recipe/tweet/:recipeId", tweetPage(repo))
 	e.GET("/recipe/:recipeId", recipePage(repo))
 
 	e.Start(":" + os.Getenv("PORT"))
