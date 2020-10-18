@@ -156,5 +156,5 @@ func main() {
 	e.GET("/recipe/tweet/:recipeId", tweetPage(repo))
 	e.GET("/recipe/:recipeId", recipePage(repo))
 
-	e.Start(":9090")
+	e.Start(":" + os.Getenv("PORT"))
 }
