@@ -2,10 +2,14 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"strconv"
+	"strings"
 	"text/template"
 
 	"cloud.google.com/go/firestore"
@@ -16,11 +20,18 @@ import (
 	"google.golang.org/api/option"
 )
 
-// "google.golang.org/api/option"
-
 type Recipe struct {
-	Name    string `json:"name"`
-	Message string `json:"message"`
+	Name        string `json:"name"`
+	Message     string `json:"message"`
+	Pic         string `json:"pic"`
+	Difficulty  int    `json:"difficulty"`
+	Ingredients string `json:"ingredients"`
+	HowTo1      string `json:"howTo1"`
+	HowTo2      string `json:"howTo2"`
+	HowTo3      string `json:"howTo3"`
+	HowTo4      string `json:"howTo4"`
+	HowTo5      string `json:"howTo5"`
+	HowTo6      string `json:"howTo6"`
 }
 
 type Repo struct {
@@ -31,7 +42,10 @@ type Repo struct {
 func initRepo() (*Repo, func()) {
 	ctx := context.Background()
 	sa := option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
-	app, err := firebase.NewApp(ctx, nil, sa)
+	config := &firebase.Config{
+		StorageBucket: "cookshare-kyoto.appspot.com",
+	}
+	app, err := firebase.NewApp(ctx, config, sa)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -45,7 +59,8 @@ func initRepo() (*Repo, func()) {
 		client.Close()
 	}
 
-	return &Repo{client: client, ctx: ctx}, close
+	return &Repo{client: client, ctx: ctx},
+		close
 }
 
 type Template struct {
@@ -58,9 +73,24 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func postPage(repo *Repo) echo.HandlerFunc {
 	return func(c echo.Context) error {
+		file, _, _ := c.Request().FormFile("pic_complete")
+		fileData, _ := ioutil.ReadAll(file)
+		enc := base64.StdEncoding.EncodeToString(fileData)
+
+		difficulty, _ := strconv.Atoi(c.FormValue("difficulty"))
+
 		post := Recipe{
-			Name:    c.FormValue("name"),
-			Message: c.FormValue("introduction"),
+			Name:        c.FormValue("name"),
+			Message:     strings.Replace(c.FormValue("introduction"), "\n", "<br/>", -1),
+			Pic:         enc,
+			Difficulty:  difficulty,
+			Ingredients: strings.Replace(c.FormValue("ingredients"), "\n", "<br/>", -1),
+			HowTo1:      strings.Replace(c.FormValue("howTo1"), "\n", "<br/>", -1),
+			HowTo2:      strings.Replace(c.FormValue("howTo2"), "\n", "<br/>", -1),
+			HowTo3:      strings.Replace(c.FormValue("howTo3"), "\n", "<br/>", -1),
+			HowTo4:      strings.Replace(c.FormValue("howTo4"), "\n", "<br/>", -1),
+			HowTo5:      strings.Replace(c.FormValue("howTo5"), "\n", "<br/>", -1),
+			HowTo6:      strings.Replace(c.FormValue("howTo6"), "\n", "<br/>", -1),
 		}
 
 		docref, _, err := repo.client.Collection("recipes").Add(repo.ctx, post)

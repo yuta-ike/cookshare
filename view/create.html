@@ -16,7 +16,7 @@
     </header>
     <main>
         <h1>料理投稿ページ</h1>
-        <form method="post" action="/recipe/create/post" >
+        <form method="post" action="/recipe/create/post" enctype="multipart/form-data">
             <div class="block">
                 <label class="underBar" for="name">タイトル(料理名)</label>
                 <input type="text" name="name" placeholder="名前を入れてください">
@@ -68,40 +68,40 @@
             </div>
             <div class="block">
                 <label class="underBar" for="title">作り方1</label>
-                <textarea class="box" name="how_to"rows="5"></textarea>
-                <form method="post" enctype="multipart/form-data">
+                <textarea class="box" name="howTo1"rows="5"></textarea>
                 <input type="file" name="pic">
                 </div> 
             </div>
             <div class="block">
                 <label class="underBar" for="title">作り方2</label>
-                <textarea class="box" name="how_to"rows="5"></textarea>
-                <form method="post" enctype="multipart/form-data">
+                <textarea class="box" name="howTo2"rows="5"></textarea>
                 <input type="file" name="pic">
                 </div> 
             </div>
             <div class="block">
                 <label class="underBar" for="title">作り方3</label>
-                <textarea class="box" name="how_to"rows="5"></textarea>
-                <form method="post" enctype="multipart/form-data">
+                <textarea class="box" name="howTo3"rows="5"></textarea>
                 <input type="file" name="pic">
-                </div> 
+                </div>
             </div>
             <div class="block">
                 <label class="underBar" for="title">作り方4</label>
-                <textarea class="box" name="how_to"rows="5"></textarea>
-                <form method="post" enctype="multipart/form-data">
+                <textarea class="box" name="howTo4"rows="5"></textarea>
                 <input type="file" name="pic">
-                </div> 
+                </div>
             </div>
-         
-
-
-            <div class="text-center">
-                <input type="checkbox" id="check"><label for="check">
-                    Twitterで紹介する</label>
+						<div class="block">
+                <label for="title">作り方5</label>
+                <textarea class="box" name="howTo5"rows="5"></textarea>
+                <input type="file" name="pic">
+                </div>
             </div>
-            
+						<div class="block">
+                <label for="title">作り方6</label>
+                <textarea class="box" name="howTo6"rows="5"></textarea>
+                <input type="file" name="pic">
+                </div>
+            </div>
             <div class="text-center">
                 <input type="submit" value="投稿する">
             </div>

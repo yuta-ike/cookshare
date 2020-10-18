@@ -22,11 +22,26 @@
         <h1>料理紹介ページ</h1>
         
         <h2>料理名</h2>
-            <!-- <figure><img id="pic" src="logo.png"  width="150" height="150"></figure> -->
-            <p>カレーライス{{.Name}}</p>
-            <!--- <img src="/css/upload.jpg" alt="" height="100"> -->
+            <p>{{.Name}}</p>
+            <img src="data:image/png;base64,{{.Pic}}" alt="" height="100">
             <p id="easy">お手軽度</p>
-            <p id="star">★★★★</p>
+            <p id="star">
+            {{if eq .Difficulty 1}}
+            ★
+            {{end}}
+            {{if eq .Difficulty 2}}
+            ★★
+            {{end}}
+            {{if eq .Difficulty 3}}
+            ★★★
+            {{end}}
+            {{if eq .Difficulty 4}}
+            ★★★★
+            {{end}}
+            {{if eq .Difficulty 5}}
+            ★★★★★
+            {{end}}
+            </p>
             <div>
                 <label class="tag">#切る</label>
                 <label class="tag">#煮る</label>
@@ -34,47 +49,33 @@
             </div>
             
         <h2>料理紹介</h2>
-            <p>切って煮込むだけ！</p>
+            <p>{{.Message}}</p>
         <h2>材料</h2>
-            <p>カレールー　半かけら
-                <br>肉　100g
-                <br>ジャガイモ　中2個
-                <br>ニンジン　　半分　
-                <br>玉ねぎ　　　中1個
-
-            </p>
+            <p>{{.Ingredients}}</p>
         <h2>作り方</h2>
-    
         <div class="howTo">
             <h3>1</h3>
-            <p>野菜を切る</p>
+            <p>{{.HowTo1}}</p>
         </div>
         <div class="howTo">
             <h3>2</h3>
-            <p>鍋に油をしき、玉ねぎを炒める
-                <br>きつね色になったら他の野菜、肉を入れる
-            </p>
+            <p>{{.HowTo2}}</p>
         </div>
         <div class="howTo">
             <h3>3</h3>
-            <p>水500㎖入れる
-                <br>あくが浮いてきたらとる
-            </p>
+            <p>{{.HowTo3}}</p>
         </div>
         <div class="howTo">
             <h3>4</h3>
-            <p>10分ほど煮込んだらカレールーを入れる</p>
+            <p>{{.HowTo4}}</p>
         </div>
         <div class="howTo">
-            <h3>5</h3>
-            <p>軽くかき混ぜながら10分温める</p>
+            <h3>4</h3>
+            <p>{{.HowTo5}}</p>
         </div>
         <div class="howTo">
-            <h3>6</h3>
-            <p>完成!
-                <br>アツアツのうちに食べよう！
-            </p>
-            <!-- <img src="upload.jpg" alt="" height="100"> -->
+            <h3>4</h3>
+            <p>{{.HowTo6}}</p>
         </div>
     </main>
     <footer>
