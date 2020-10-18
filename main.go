@@ -153,5 +153,5 @@ func main() {
 	e.GET("/recipe/tweet/:recipeId", tweetPage(repo))
 	e.GET("/recipe/:recipeId", recipePage(repo))
 
-	e.Start("localhost:9090")
+	e.Start(":9090")
 }
