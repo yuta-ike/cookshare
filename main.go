@@ -12,7 +12,6 @@ import (
 	firebase "firebase.google.com/go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"golang.org/x/oauth2/google"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
@@ -31,14 +30,8 @@ type Repo struct {
 
 func initRepo() (*Repo, func()) {
 	ctx := context.Background()
-	credentials, err := google.CredentialsFromJSON(ctx, []byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
-	if err != nil {
-		log.Printf("error credentials from json: %v\n", err)
-	}
-	sa := option.WithCredentials(credentials)
-	// sa := option.WithCredentialsFile("./settings/serviceAccount.json")
+	sa := option.WithCredentialsJSON([]byte(os.Getenv("GOOGLE_APPLICATION_CREDENTIALS")))
 	app, err := firebase.NewApp(ctx, nil, sa)
-	// app, err := firebase.NewApp(ctx, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
