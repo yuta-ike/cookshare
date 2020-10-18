@@ -1,0 +1,93 @@
+body{
+    font-family:"Helvetica Neue",Arial,"Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+    font-size: 14px;
+}
+
+
+h1,h2{
+    color: #f39c1a;
+    text-shadow: 0 0 5px white;
+    padding: 0.3em 0.5em;
+    background: -webkit-repeating-linear-gradient(-45deg, #ffefcc, #ffefcc 3px,#fff8e9 3px, #fff6e9 7px);
+    background: repeating-linear-gradient(-45deg,  #ffefcc, #ffefcc 3px,,#fff8e9 3px, #fff6e9 7px);
+    box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .5);
+    
+    background-color: rgb(248, 246, 246);
+    border-left: solid 5px rgb(247, 202, 4);
+    border-radius: 2px;
+    padding: 5px;
+}
+h1{
+    font-size: 24px;
+}
+h2{
+    font-size: 20px;
+}
+h3{
+    margin: 5px;
+    font-size: 16px;
+}
+p{
+    margin: 10px;
+    line-height: 2;
+}
+.headerInner{
+    text-align: center;
+}
+
+
+.howTo{
+    display: inline-block;
+    border-bottom: solid 1px rgb(253, 226, 102);
+    width: 100%;
+    
+}
+
+figure{
+    float: right;
+    margin: -20px 20px;
+}
+
+.box{
+    width: 100%;
+}
+
+
+
+.block{
+    margin: 25px 0;
+}
+
+.text-center{
+    margin: 25px 0;
+    text-align: center; 
+}
+label{
+    font-weight: bold;
+}
+#star{
+    color: #FF8C00;
+    background: -webkit-linear-gradient(0deg, #e5e902 0%, #ff5e00 20%, #ff0000 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 36px;
+    text-shadow: 3px 3px 1px rgba(0,0,0,0.3);
+}
+.tag{
+    background: radial-gradient(rgb(250, 204, 118),rgb(252, 172, 118));
+    border-radius: 20px;
+    padding: 2px 10px;
+    margin: 2px;
+    font-size: 16px;
+    font-weight: bold;
+
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .5);
+    
+}
+
+.footerInner{
+    height: 20px;
+    background: linear-gradient(30deg,rgb(248, 209, 137),rgb(255, 183, 28));
+    text-align: center;
+    padding: 10px;
+}
