@@ -51,7 +51,14 @@ figure{
 .box{
     width: 100%;
 }
-
+.underBar{
+    display: inline-block;
+    border-bottom: dotted 2px #87CEFA;
+    border-right: 50px;
+    margin-bottom: 8px;
+    
+    
+}
 
 
 .block{
@@ -65,13 +72,18 @@ figure{
 label{
     font-weight: bold;
 }
+#easy{
+    margin-bottom: 0px;
+    line-height: 1;
+}
 #star{
     color: #FF8C00;
     background: -webkit-linear-gradient(0deg, #e5e902 0%, #ff5e00 20%, #ff0000 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 36px;
-    text-shadow: 3px 3px 1px rgba(0,0,0,0.3);
+    line-height: 1;
+    margin: 5px 10px 20px;
 }
 .tag{
     background: radial-gradient(rgb(250, 204, 118),rgb(252, 172, 118));
@@ -81,13 +93,13 @@ label{
     font-size: 16px;
     font-weight: bold;
 
-    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, .5);
+    box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, .5);
     
 }
 
 .footerInner{
     height: 20px;
-    background: linear-gradient(30deg,rgb(248, 209, 137),rgb(255, 183, 28));
+    background: linear-gradient(-60deg,rgb(245, 232, 206),rgb(252, 177, 15));
     text-align: center;
     padding: 10px;
 }
