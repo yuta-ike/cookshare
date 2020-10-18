@@ -3,21 +3,41 @@
 <html>
 <head>
 	<title>HELLO</title>
+	<style>
+	.wrapper{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-bottom: 10em;
+		flex-direction: column;
+		height: 100vh;
+	}
+	.link{
+		margin-bottom: 1em
+	}
+	</style>
 </head>
 <body>
-	<a
-		href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw"
-		class="twitter-share-button"
-		data-size="large"
-		data-text="「{{.Recipe.Name}}」のレシピを投稿しました！
-お手軽度: {{if eq .Recipe.Difficulty 1}}★{{end}}{{if eq .Recipe.Difficulty 2}}★★{{end}}{{if eq .Recipe.Difficulty 3}}★★★{{end}}{{if eq .Recipe.Difficulty 4}}★★★★{{end}}{{if eq .Recipe.Difficulty 5}}★★★★★{{end}}
-"
-		data-url="https://cookshare-kyoto.herokuapp.com/recipe/{{.ID}}"
-		data-hashtags="UniPad,レシピ"
-		data-show-count="false"
-	>
-		Tweet
-	</a>
+	<div class="wrapper">
+	<div>
+		<a class="link" href="https://cookshare-kyoto.herokuapp.com/recipe/{{.ID}}">自分のレシピを見る</a>
+	</div>
+		<div>
+			<a
+				href="https://twitter.com/intent/tweet?ref_src=twsrc%5Etfw"
+				class="twitter-share-button"
+				data-size="large"
+				data-text="「{{.Recipe.Name}}」のレシピを投稿しました！
+		お手軽度: {{if eq .Recipe.Difficulty 1}}★{{end}}{{if eq .Recipe.Difficulty 2}}★★{{end}}{{if eq .Recipe.Difficulty 3}}★★★{{end}}{{if eq .Recipe.Difficulty 4}}★★★★{{end}}{{if eq .Recipe.Difficulty 5}}★★★★★{{end}}
+		"
+				data-url="https://cookshare-kyoto.herokuapp.com/recipe/{{.ID}}"
+				data-hashtags="UniPad,レシピ"
+				data-show-count="false"
+			>
+				Tweet
+			</a>
+		</div>
+	</div>
 	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>

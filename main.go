@@ -73,11 +73,20 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 func postPage(repo *Repo) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		file, _, _ := c.Request().FormFile("pic_complete")
-		fileData, _ := ioutil.ReadAll(file)
+		file, _, err := c.Request().FormFile("pic_complete")
+		if err != nil {
+			return c.Render(http.StatusOK, "error", nil)
+		}
+		fileData, err := ioutil.ReadAll(file)
+		if err != nil {
+			return c.Render(http.StatusOK, "error", nil)
+		}
 		enc := base64.StdEncoding.EncodeToString(fileData)
 
-		difficulty, _ := strconv.Atoi(c.FormValue("difficulty"))
+		difficulty, err := strconv.Atoi(c.FormValue("difficulty"))
+		if err != nil {
+			return c.Render(http.StatusOK, "error", nil)
+		}
 
 		post := Recipe{
 			Name:        c.FormValue("name"),
@@ -95,7 +104,7 @@ func postPage(repo *Repo) echo.HandlerFunc {
 
 		docref, _, err := repo.client.Collection("recipes").Add(repo.ctx, post)
 		if err != nil {
-			log.Fatal(err)
+			return c.Render(http.StatusOK, "error", nil)
 		}
 
 		return c.Redirect(http.StatusPermanentRedirect, "/recipe/tweet/"+docref.ID)
@@ -113,12 +122,12 @@ func recipePage(repo *Repo) echo.HandlerFunc {
 		recipeID := c.Param("recipeId")
 		dsnap, err := repo.client.Collection("recipes").Doc(recipeID).Get(repo.ctx)
 		if err != nil {
-			log.Fatal(err)
+			return c.Render(http.StatusOK, "404", nil)
 		}
 
 		recipe := Recipe{}
 		if err := dsnap.DataTo(&recipe); err != nil {
-			log.Fatal(err)
+			return c.Render(http.StatusOK, "error", nil)
 		}
 
 		return c.Render(http.StatusOK, "recipe", recipe)

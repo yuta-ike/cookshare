@@ -103,3 +103,8 @@ label{
     text-align: center;
     padding: 10px;
 }
+
+.logo-image{
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
