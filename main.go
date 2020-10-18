@@ -11,6 +11,7 @@ import (
 	firebase "firebase.google.com/go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 )
 
@@ -84,6 +85,51 @@ func recipePage(repo *Repo) echo.HandlerFunc {
 	}
 }
 
+func listPage(repo *Repo) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		iter := repo.client.Collection("recipes").Documents(repo.ctx)
+		recipes := []*Recipe{}
+		for {
+			doc, err := iter.Next()
+			if err == iterator.Done {
+				break
+			}
+			if err != nil {
+				return err
+			}
+			recipe := Recipe{}
+			if err := doc.DataTo(&recipe); err != nil {
+				log.Fatal(err)
+			}
+			recipes = append(recipes, &recipe)
+		}
+		return c.Render(http.StatusOK, "list", recipes)
+	}
+}
+
+func tweetPage(repo *Repo) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		recipeID := c.Param("recipeId")
+		dsnap, err := repo.client.Collection("recipes").Doc(recipeID).Get(repo.ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		recipe := Recipe{}
+		if err := dsnap.DataTo(&recipe); err != nil {
+			log.Fatal(err)
+		}
+
+		return c.Render(http.StatusOK, "tweet", struct {
+			Recipe Recipe
+			ID     string
+		}{
+			Recipe: recipe,
+			ID:     recipeID,
+		})
+	}
+}
+
 func main() {
 	repo, close := initRepo()
 	defer close()
@@ -103,6 +149,8 @@ func main() {
 	e.Static("/css", "./css")
 	e.POST("/recipe/create/post", postPage(repo))
 	e.GET("/recipe/create", createPage())
+	e.GET("/recipe/list", listPage(repo))
+	e.GET("/recipe/tweet/:recipeId", tweetPage(repo))
 	e.GET("/recipe/:recipeId", recipePage(repo))
 
 	e.Start("localhost:9090")
