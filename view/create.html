@@ -1,12 +1,121 @@
 {{define "create"}}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-	<title>HELLO</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユニパッド</title>
+    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<p>投稿ページ</p>
+    <header>
+        <div class="headerInner">
+            <img src="logo.png" alt="ロゴ" width=100% height="80" >
+        </div>
+    </header>
+    <main>
+        <h1>料理投稿ページ</h1>
+        <form action="thanks.html" >
+            <div class="block">
+                <label for="name">タイトル(料理名)</label>
+                <input type="text" name="name" placeholder="名前を入れてください">
+            </div>
+            <div class="block">
+                <label for="name">完成写真</label>
+                <form method="post" enctype="multipart/form-data">
+               <input type="file" name="pic">
+            </div>
+            <div class="block">
+                <label for="a">料理行程</label>
+                <input type="checkbox" name="way" id =cut
+                value="cut"><label for="cut">切る</label>
+                <input type="checkbox" name="way" id =tear
+                value="tear"><label for="tear">ちぎる</label>
+                <input type="checkbox" name="way" id =boil
+                value="boil"><label for="boil">茹でる</label>
+                <input type="checkbox" name="way" id =cook
+                value="cook"><label for="cook">煮る</label>
+                <input type="checkbox" name="way" id =grill
+                value="grill"><label for="grill">焼く、炒める</label>
+                <input type="checkbox" name="way" id =MW
+                value="MW"><label for="MW">レンチン</label>
+                <input type="checkbox" name="way" id =fry
+                value="fry"><label for="fry">揚げる</label>
+            </div>
+
+            <div class="block">
+                <label for="age">簡単さ</label>
+                <div class="selectBox">
+                    <select name="difficulty">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="block">
+                <label for="name">料理紹介</label>
+                <input type="text" name="introduction" placeholder="ひとこと">
+            </div>
+            <div class="block">
+                <label for="title">材料</label>
+                <textarea class="box" name="ingredients" rows="10"></textarea>
+            </div>
+            <div class="block">
+                <label for="title">作り方1</label>
+                <textarea class="box" name="how_to"rows="5"></textarea>
+                <form method="post" enctype="multipart/form-data">
+                <input type="file" name="pic">
+                </div> 
+            </div>
+            <div class="block">
+                <label for="title">作り方2</label>
+                <textarea class="box" name="how_to"rows="5"></textarea>
+                <form method="post" enctype="multipart/form-data">
+                <input type="file" name="pic">
+                </div> 
+            </div>
+            <div class="block">
+                <label for="title">作り方3</label>
+                <textarea class="box" name="how_to"rows="5"></textarea>
+                <form method="post" enctype="multipart/form-data">
+                <input type="file" name="pic">
+                </div> 
+            </div>
+            <div class="block">
+                <label for="title">作り方4</label>
+                <textarea class="box" name="how_to"rows="5"></textarea>
+                <form method="post" enctype="multipart/form-data">
+                <input type="file" name="pic">
+                </div> 
+            </div>
+         
+
+
+            <div class="text-center">
+                <input type="checkbox" id="check"><label for="check">
+                    Twitterで紹介する</label>
+            </div>
+            
+            <div class="text-center">
+                <input type="submit" value="投稿する">
+            </div>
+        </form>
+    </main>
+
+    
+    <footer>
+        <div class="footerInner">
+            <small>&copy; ちーむなわとび</small>
+        </div>
+    </footer>
 </body>
 </html>
+
+
+
 
 {{end}}
