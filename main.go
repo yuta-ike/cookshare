@@ -148,7 +148,7 @@ func listPage(repo *Repo) echo.HandlerFunc {
 			}
 			recipe := Recipe{}
 			if err := doc.DataTo(&recipe); err != nil {
-				log.Fatal(err)
+				return c.Render(http.StatusOK, "error", nil)
 			}
 			recipes = append(recipes, &recipe)
 		}
@@ -161,12 +161,12 @@ func tweetPage(repo *Repo) echo.HandlerFunc {
 		recipeID := c.Param("recipeId")
 		dsnap, err := repo.client.Collection("recipes").Doc(recipeID).Get(repo.ctx)
 		if err != nil {
-			log.Fatal(err)
+			return c.Render(http.StatusOK, "error", nil)
 		}
 
 		recipe := Recipe{}
 		if err := dsnap.DataTo(&recipe); err != nil {
-			log.Fatal(err)
+			return c.Render(http.StatusOK, "error", nil)
 		}
 
 		return c.Render(http.StatusOK, "tweet", struct {
