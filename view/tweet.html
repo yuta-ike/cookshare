@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>HELLO</title>
+	<title>ずぼら〜ず</title>
 	<style>
 	.wrapper{
 		display: flex;
@@ -28,10 +28,10 @@
 				class="twitter-share-button"
 				data-size="large"
 				data-text="「{{.Recipe.Name}}」のレシピを投稿しました！
-		お手軽度: {{if eq .Recipe.Difficulty 1}}★{{end}}{{if eq .Recipe.Difficulty 2}}★★{{end}}{{if eq .Recipe.Difficulty 3}}★★★{{end}}{{if eq .Recipe.Difficulty 4}}★★★★{{end}}{{if eq .Recipe.Difficulty 5}}★★★★★{{end}}
-		"
+お手軽度: {{if eq .Recipe.Difficulty 1}}★{{end}}{{if eq .Recipe.Difficulty 2}}★★{{end}}{{if eq .Recipe.Difficulty 3}}★★★{{end}}{{if eq .Recipe.Difficulty 4}}★★★★{{end}}{{if eq .Recipe.Difficulty 5}}★★★★★{{end}}
+"
 				data-url="https://cookshare-kyoto.herokuapp.com/recipe/{{.ID}}"
-				data-hashtags="UniPad,レシピ"
+				data-hashtags="ずぼら〜ず,レシピ"
 				data-show-count="false"
 			>
 				Tweet
