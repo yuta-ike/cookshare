@@ -150,6 +150,7 @@ func main() {
 	e.Use(middleware.Recover())
 
 	e.Static("/css", "./css")
+	e.Static("/recipe/css", "./css")
 	e.POST("/recipe/create/post", postPage(repo))
 	e.GET("/recipe/create", createPage())
 	e.GET("/recipe/list", listPage(repo))
