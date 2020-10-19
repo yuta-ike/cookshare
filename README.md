@@ -1,5 +1,10 @@
-# cookshare（仮）
+# ずぼら〜ず
 Twitterベースのレシピ共有サービス
+
+## スクリーンショット
+<img width="392" alt="Cap 2020-10-19 17 43 24" src="https://user-images.githubusercontent.com/38308823/96422285-c7855180-1232-11eb-9df3-940c28d70253.png"> <img width="392" alt="Cap 2020-10-19 17 43 24" src="https://user-images.githubusercontent.com/38308823/96422406-f13e7880-1232-11eb-9999-60f730cc059f.png">
+
+
 
 ## なんちゃって企画書
 ### ターゲット
